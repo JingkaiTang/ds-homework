@@ -3,6 +3,7 @@
 #include <random>
 #include <algorithm>
 #include <vector>
+#include <numeric>
 
 using namespace std;
 
@@ -28,9 +29,18 @@ int main(int argc, char **argv) {
 
   print_arr();
 
-  for(auto it = arr.begin()+1; it != arr.end(); ++it) {
-    *it += *(it-1);
-  }
+  auto normal_impl = [&arr]() {
+    for(auto it = arr.begin()+1; it != arr.end(); ++it) {
+      *it += *(it-1);
+    }
+  };
+  normal_impl();
+  print_arr();
+
+  auto cpp_impl = [&arr]() {
+    partial_sum(arr.begin(), arr.end(), arr.begin());
+  };
+  cpp_impl();
   print_arr();
 
   return 0;

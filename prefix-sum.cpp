@@ -2,6 +2,9 @@
 #include <chrono>
 #include <random>
 #include <algorithm>
+#include <cstdlib>
+
+#define ARRAY_LEN 10
 
 using namespace std;
 
@@ -12,7 +15,7 @@ int main(int argc, char **argv) {
     return generator() % 100;
   };
 
-  int len = 10;
+  int len = argc > 1 ? atoi(argv[1]) : ARRAY_LEN;
   vector<int> arr;
   for(int i = 0; i < len; i++) {
     arr.push_back(get_rand());

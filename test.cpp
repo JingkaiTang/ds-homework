@@ -8,13 +8,11 @@ int main(int argc, char **argv) {
   int l_proc = MPI::COMM_WORLD.Get_size();
   int l_rank = MPI::COMM_WORLD.Get_rank();
 
-  int a = 2222;
+  MPI::COMM_WORLD.Send(&l_rank, 1, MPI::INT, (l_rank+1)%l_proc, 0);
 
-  MPI::COMM_WORLD.Send(&a, 1, MPI_INT, (l_rank+1)%l_proc, 0);
-
-  int b = 0;
-  MPI::COMM_WORLD.Recv(&b, 1, MPI_INT, (l_rank-1)%l_proc, 0);
-  cout << "In Proc " << l_rank << " " << b << endl;
+  int buf = 0;
+  MPI::COMM_WORLD.Recv(&buf, 1, MPI::INT, (l_rank-1)%l_proc, 0);
+  cout << "I am rank " << l_rank << ", I received a message from rank " << buf << endl;
 
   MPI::Finalize();
 

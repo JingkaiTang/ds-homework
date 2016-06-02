@@ -11,7 +11,7 @@ using namespace std;
 int main(int argc, char **argv) {
   unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
   minstd_rand0 generator(seed);
-  auto get_rand = [&generator]() {
+  auto get_rand = [&generator]() -> int {
     return generator() % 100;
   };
 
